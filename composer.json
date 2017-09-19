@@ -1,6 +1,6 @@
 {
-    "name": "jeffochoa/laravel-package-boilerplate",
-    "description": "A simple boilerplate to create new laravel packages.",
+    "name": "laravel-israel/eloquent-status-manager",
+    "description": "A status manager trait for Eloquent models",
     "type": "library",
     "version": "1.0.0-dev",
     "require": {
@@ -13,24 +13,17 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Jefferson Ochoa (Jeff)"
+            "name": "Ido Bublil"
         }
     ],
     "autoload": {
         "psr-4": {
-            "NamespaceHolder\\": "src/"
+            "LaravelIsrael\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "NamespaceHolder\\Tests\\": "tests/"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "NamespaceHolder\\Providers\\PackageServiceProvider"
-            ]
+            "LaravelIsrael\\Tests\\": "tests/"
         }
     }
 }
