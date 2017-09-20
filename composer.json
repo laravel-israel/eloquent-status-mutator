@@ -18,12 +18,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "LaravelIsrael\\": "src/"
+            "LaravelIsrael\\EloquentStatusManager\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "LaravelIsrael\\Tests\\": "tests/"
+            "LaravelIsrael\\EloquentStatusManager\\Tests\\": "tests/"
         }
     }
 }

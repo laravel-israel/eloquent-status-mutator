@@ -1,6 +1,6 @@
 # Eloquent Status Manager
 Handling status of Eloquent models was never easier.
-This package help you to take control of status flow of Eloquent model.
+Just define the status flow, and the package will take care of the rest.
 
 ## Usage
 Define statuses
@@ -13,13 +13,9 @@ class MyModel extends Model
      * @var array
      */
     public $statuses = [
-        'in progress',
-        'selected' => [
-            'from' => 'in progress',
-        ],
-        'rejected' => [
-            'from' => 'in progress',
-        ],
+        'in progress' => [],
+        'selected' => ['from' => 'in progress'],
+        'rejected' => ['from' => 'in progress'],
     ];
 }
 ```
@@ -47,13 +43,9 @@ class MyModel extends Model
      * @var array
      */
     public $statuses = [
-        'in progress',
-        'selected' => [
-            'from' => 'in progress',
-        ],
-        'rejected' => [
-            'from' => 'in progress',
-        ],
+        'in progress' => [],
+        'selected' => ['from' => 'in progress'],
+        'rejected' => ['from' => 'in progress'],
     ];
     
     /**
@@ -67,7 +59,7 @@ class MyModel extends Model
 ```
 
 ```php
-$myModel->setTo('rejected'); // Will send mail
+$myModel->status = 'rejected'; // Will send mail
 ```
 
 ## Installation
