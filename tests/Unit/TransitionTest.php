@@ -38,7 +38,7 @@ class TransitionTest extends TestCase
             'aaa'  => [],
             'bbb'  => ['from' => 'aaa'],
         ]);
-        
+
         $model->status = 'bbb';
 
         $this->addToAssertionCount(1);
@@ -50,7 +50,7 @@ class TransitionTest extends TestCase
             'aaa'  => [],
             'bbb'  => ['from' => 'ccc'],
         ]);
-        
+
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Status of aaa cannot be changed to bbb');
 
@@ -63,7 +63,7 @@ class TransitionTest extends TestCase
             'aaa'  => [],
             'bbb'  => ['from' => ['aaa']],
         ]);
-        
+
         $model->status = 'bbb';
 
         $this->addToAssertionCount(1);

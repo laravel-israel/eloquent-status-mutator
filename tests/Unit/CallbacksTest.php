@@ -21,9 +21,9 @@ class CallbacksTest extends TestCase
         ];
 
         $this->model = $this->getMockBuilder(SampleModel::class)
-                            ->setConstructorArgs([$statuses])
-                            ->setMethods(['afterAaa', 'beforeBbb'])
-                            ->getMock();
+            ->setConstructorArgs([$statuses])
+            ->setMethods(['afterAaa', 'beforeBbb'])
+            ->getMock();
     }
 
     public function test_before_callback()
