@@ -1,5 +1,5 @@
 {
-    "name": "laravel-israel/eloquent-status-manager",
+    "name": "laravel-israel/eloquent-status-mutator",
     "description": "A status manager trait for Eloquent models",
     "type": "library",
     "version": "1.0.0-dev",
@@ -18,12 +18,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "LaravelIsrael\\EloquentStatusManager\\": "src/"
+            "LaravelIsrael\\EloquentStatusMutator\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "LaravelIsrael\\EloquentStatusManager\\Tests\\": "tests/"
+            "LaravelIsrael\\EloquentStatusMutator\\Tests\\": "tests/"
         }
     }
 }

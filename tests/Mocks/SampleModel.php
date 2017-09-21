@@ -1,13 +1,13 @@
 <?php
 
-namespace LaravelIsrael\EloquentStatusManager\Tests\Mocks;
+namespace LaravelIsrael\EloquentStatusMutator\Tests\Mocks;
 
 use Illuminate\Database\Eloquent\Model;
-use LaravelIsrael\EloquentStatusManager\EloquentStatusManagerTrait;
+use LaravelIsrael\EloquentStatusMutator\HasStatus;
 
 class SampleModel extends Model
 {
-    use EloquentStatusManagerTrait;
+    use HasStatus;
 
     /**
      * @var array

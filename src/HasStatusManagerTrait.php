@@ -1,11 +1,11 @@
 <?php
 
-namespace LaravelIsrael\EloquentStatusManager;
+namespace LaravelIsrael\EloquentStatusMutator;
 
 use RuntimeException;
 
 /**
- * Trait EloquentStatusManagerTrait.
+ * Trait HasStatus.
  *
  * @property array statuses
  * @property array attributes
@@ -13,7 +13,7 @@ use RuntimeException;
  *
  * @method void save
  */
-trait EloquentStatusManagerTrait
+trait HasStatus
 {
     /**
      * @param string $newStatus

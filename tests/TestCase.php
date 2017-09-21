@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelIsrael\EloquentStatusManager\Tests;
+namespace LaravelIsrael\EloquentStatusMutator\Tests;
 
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 

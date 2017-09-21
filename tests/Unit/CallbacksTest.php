@@ -1,9 +1,9 @@
 <?php
 
-namespace LaravelIsrael\EloquentStatusManager\Tests\Unit;
+namespace LaravelIsrael\EloquentStatusMutator\Tests\Unit;
 
-use LaravelIsrael\EloquentStatusManager\Tests\Mocks\SampleModel;
-use LaravelIsrael\EloquentStatusManager\Tests\TestCase;
+use LaravelIsrael\EloquentStatusMutator\Tests\Mocks\SampleModel;
+use LaravelIsrael\EloquentStatusMutator\Tests\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 
 class CallbacksTest extends TestCase

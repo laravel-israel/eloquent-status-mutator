@@ -1,68 +1,108 @@
-# Eloquent Status Manager
-Handling status of Eloquent models was never easier.
-Just define the status flow, and the package will take care of the rest.
+# Eloquent Status Mutator
+Handling status changes of a model is always a pain.
+
+Eloquent Status Mutator provides is a simple trait which enforces correct status changes & some more cool features. 
 
 ## Usage
-Define statuses
+### Define Statuses
+Define the statuses of the model in the `statuses` property:
+
 ```php
-class MyModel extends Model
+class Order extends Model
 {
-    use EloquentStatusManagerTrait;
+    use HasStatus;
     
-    /**
-     * @var array
-     */
-    public $statuses = [
-        'in progress' => [],
-        'selected' => ['from' => 'in progress'],
-        'rejected' => ['from' => 'in progress'],
+    protected $statuses = [
+        'opened'    => [],
+        'payed'     => ['from' => 'opened'],
+        'shipped'   => ['from' => 'payed'],
+        'arrived'   => ['from' => 'shipped'],
+        'cancelled' => ['from' => ['opened', 'payed', 'shipped']],
     ];
 }
 ```
 
-Model accessors
+### Automatic Status Enforcement
+The package makes sure that only listed statuses can be set:
+
 ```php
-if ($myModel->canBe('rejected')) {
-    echo 'Model can be changed to "rejected"';
+$order->status = 'opened'; // OK
+
+$order->status = 'invalid status'; // Throws Exception
+```
+
+### Status Flow Validation
+The package enforces that status can be set only after defined statuses in its `'from'` key
+
+```php
+$order->status = 'opened';
+
+$order->status = 'payed'; // OK
+
+$order->status = 'arrived'; // Throws Exception
+```
+
+### Helpers
+
+```php
+$order->status = 'payed';
+
+if ($order->is('payed')) {
+    echo 'The order is shipped';
+}
+
+if ($order->canBe('shipped')) {
+    echo 'The order can be shipped';
 }
 ```
 
-Changing status
+### Before and After callbacks
+In some cases, we need to do something after a specific status is set - for example, send a mail after an order is cancelled.
+Our package invokes a method after status change by the convention of `on` + `status name (camel cased)` 
+
 ```php
-class MyModel extends Model
+class Order extends Model
 {
-    use EloquentStatusManagerTrait;
+    use HasStatus;
     
-    /**
-     * @var array
-     */
-    public $statuses = [
-        'in progress' => [],
-        'selected' => ['from' => 'in progress'],
-        'rejected' => ['from' => 'in progress'],
+    protected $statuses = [
+        'opened'    => [],
+        'payed'     => ['from' => 'opened'],
+        'shipped'   => ['from' => 'payed'],
+        'arrived'   => ['from' => 'shipped'],
+        'cancelled' => ['from' => ['opened', 'payed', 'shipped']],
     ];
     
-    /**
-     * Reject the negotiation
-     */
-    public function beforeReject()
+    public function onCancelled()
     {
-        // Send mail
+        // Send cancellation mail to the user
     }
 }
 ```
 
-```php
-$myModel->status = 'rejected'; // Will send mail
-```
-
 ## Installation
-Require the package via composer
+* Request the package via composer
 
 ```
-composer require laravel-israel/eloquent-status-manager
+composer require laravel-israel/eloquent-status-mutator
 ```
 
-## Setup
-1. Include `EloquentStatusManagerTrait` trait on your model
-2. Create `$statuses` field on your model - with all the status definitions.
+* Use `HasStatus` trait in your model
+
+```php
+class Order extends Model
+{
+    use HasStatus;
+}
+```
+
+* Define the available statuses in the model
+
+```php
+protected $statuses = [
+    'opened'  => [],
+    'payed'   => ['from' => 'opened'],
+    'shipped' => ['from' => 'payed'],
+    'arrived' => ['from' => 'shipped'],
+];
+```
