@@ -104,7 +104,7 @@ trait EloquentStatusManagerTrait
      * @param $status
      * @return string
      */
-    public function slug_status($status): string
+    private function slug_status($status): string
     {
         $capitalizedStatus = ucfirst(camel_case($status));
         return $capitalizedStatus;
