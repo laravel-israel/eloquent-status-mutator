@@ -15,7 +15,8 @@ class SampleModel extends Model
     protected $statuses = [];
 
     /**
-     * ModelMock constructor.
+     * ModelMock SampleModel.
+     *
      * @param array $statues
      */
     public function __construct(array $statues)

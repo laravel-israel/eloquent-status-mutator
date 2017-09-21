@@ -2,8 +2,8 @@
 
 namespace LaravelIsrael\EloquentStatusManager\Tests\Unit;
 
-use LaravelIsrael\EloquentStatusManager\Tests\TestCase;
 use LaravelIsrael\EloquentStatusManager\Tests\Mocks\SampleModel;
+use LaravelIsrael\EloquentStatusManager\Tests\TestCase;
 use RuntimeException;
 
 class TransitionTest extends TestCase
@@ -36,7 +36,7 @@ class TransitionTest extends TestCase
     {
         $model = new SampleModel([
             'aaa'  => [],
-            'bbb' => ['from' => 'aaa'],
+            'bbb'  => ['from' => 'aaa'],
         ]);
         
         $model->status = 'bbb';
@@ -48,7 +48,7 @@ class TransitionTest extends TestCase
     {
         $model = new SampleModel([
             'aaa'  => [],
-            'bbb' => ['from' => 'ccc'],
+            'bbb'  => ['from' => 'ccc'],
         ]);
         
         $this->expectException(RuntimeException::class);
@@ -61,7 +61,7 @@ class TransitionTest extends TestCase
     {
         $model = new SampleModel([
             'aaa'  => [],
-            'bbb' => ['from' => ['aaa']],
+            'bbb'  => ['from' => ['aaa']],
         ]);
         
         $model->status = 'bbb';
@@ -73,7 +73,7 @@ class TransitionTest extends TestCase
     {
         $model = new SampleModel([
             'aaa'  => [],
-            'bbb' => ['from' => ['ccc']],
+            'bbb'  => ['from' => ['ccc']],
         ]);
 
         $this->expectException(RuntimeException::class);

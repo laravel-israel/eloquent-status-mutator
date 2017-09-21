@@ -5,8 +5,7 @@ namespace LaravelIsrael\EloquentStatusManager;
 use RuntimeException;
 
 /**
- * Trait EloquentStatusManagerTrait
- * @package LaravelIsrael
+ * Trait EloquentStatusManagerTrait.
  *
  * @property array statuses
  * @property array attributes
@@ -25,11 +24,11 @@ trait EloquentStatusManagerTrait
             return;
         }
 
-        if ( ! $this->canBe($newStatus)) {
+        if (!$this->canBe($newStatus)) {
             throw new RuntimeException("Status of {$this->status} cannot be changed to {$newStatus}");
         }
 
-        if ( ! is_null($this->status)) {
+        if (!is_null($this->status)) {
             $this->runAfterCallback($this->status);
         }
 
@@ -47,7 +46,7 @@ trait EloquentStatusManagerTrait
         $this->throwExceptionIfStatusInvalid($status);
 
         // Return true if the from key was not defined
-        if ( ! array_key_exists('from', $this->statuses[$status])) {
+        if (!array_key_exists('from', $this->statuses[$status])) {
             return true;
         }
 
@@ -71,7 +70,7 @@ trait EloquentStatusManagerTrait
      */
     private function throwExceptionIfStatusInvalid(string $status)
     {
-        if ( ! array_key_exists($status, $this->statuses)) {
+        if (!array_key_exists($status, $this->statuses)) {
             throw new RuntimeException("{$status} is not a valid status");
         }
     }
@@ -102,11 +101,11 @@ trait EloquentStatusManagerTrait
 
     /**
      * @param $status
+     *
      * @return string
      */
     private function slug_status($status): string
     {
-        $capitalizedStatus = ucfirst(camel_case($status));
-        return $capitalizedStatus;
+        return ucfirst(camel_case($status));
     }
 }
