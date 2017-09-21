@@ -1,11 +1,12 @@
 <?php
 
-namespace LaravelIsrael\EloquentStatusManager\Tests\Unit;
+namespace LaravelIsrael\EloquentStatusManager\Tests\Mocks;
 
 use Illuminate\Database\Eloquent\Model;
 use LaravelIsrael\EloquentStatusManager\EloquentStatusManagerTrait;
 
-class ModelMock extends Model {
+class SampleModel extends Model
+{
     use EloquentStatusManagerTrait;
 
     /**

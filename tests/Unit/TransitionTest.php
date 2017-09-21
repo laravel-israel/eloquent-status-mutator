@@ -3,13 +3,14 @@
 namespace LaravelIsrael\EloquentStatusManager\Tests\Unit;
 
 use LaravelIsrael\EloquentStatusManager\Tests\TestCase;
+use LaravelIsrael\EloquentStatusManager\Tests\Mocks\SampleModel;
 use RuntimeException;
 
 class TransitionTest extends TestCase
 {
     public function test_valid_status_can_be_set()
     {
-        $model = new ModelMock([
+        $model = new SampleModel([
             'aaa'  => [],
             'bbb'  => [],
         ]);
@@ -21,7 +22,7 @@ class TransitionTest extends TestCase
 
     public function test_invalid_status_throws_exception()
     {
-        $model = new ModelMock([
+        $model = new SampleModel([
             'aaa'  => [],
         ]);
 
@@ -33,7 +34,7 @@ class TransitionTest extends TestCase
 
     public function test_correct_transition_with_single_from()
     {
-        $model = new ModelMock([
+        $model = new SampleModel([
             'aaa'  => [],
             'bbb' => ['from' => 'aaa'],
         ]);
@@ -45,7 +46,7 @@ class TransitionTest extends TestCase
 
     public function test_incorrect_transition_with_single_from()
     {
-        $model = new ModelMock([
+        $model = new SampleModel([
             'aaa'  => [],
             'bbb' => ['from' => 'ccc'],
         ]);
@@ -58,7 +59,7 @@ class TransitionTest extends TestCase
 
     public function test_correct_transition_with_multiple_from()
     {
-        $model = new ModelMock([
+        $model = new SampleModel([
             'aaa'  => [],
             'bbb' => ['from' => ['aaa']],
         ]);
@@ -70,7 +71,7 @@ class TransitionTest extends TestCase
 
     public function test_incorrect_transition_with_multiple_from()
     {
-        $model = new ModelMock([
+        $model = new SampleModel([
             'aaa'  => [],
             'bbb' => ['from' => ['ccc']],
         ]);

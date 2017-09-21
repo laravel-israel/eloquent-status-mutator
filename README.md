@@ -22,12 +22,6 @@ class MyModel extends Model
 
 Model accessors
 ```php
-if ($myModel->is('in progress')) {
-    echo 'Model is in progress';
-}
-```
-
-```php
 if ($myModel->canBe('rejected')) {
     echo 'Model can be changed to "rejected"';
 }

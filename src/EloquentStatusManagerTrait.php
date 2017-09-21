@@ -16,23 +16,26 @@ use RuntimeException;
  */
 trait EloquentStatusManagerTrait
 {
-    public function setStatusAttribute(string $status)
-    {
-        if ( ! $this->canBe($status)) {
-            throw new RuntimeException("Status of {$this->status} cannot be changed to {$status}");
-        }
-
-        $this->attributes['status'] = $status;
-    }
-
     /**
-     * @param $status
+     * @param string $newStatus
      */
-    private function throwExceptionIfStatusInvalid(string $status)
+    public function setStatusAttribute(string $newStatus)
     {
-        if ( ! array_key_exists($status, $this->statuses)) {
-            throw new RuntimeException("{$status} is not a valid status");
+        if ($this->status === $newStatus) {
+            return;
         }
+
+        if ( ! $this->canBe($newStatus)) {
+            throw new RuntimeException("Status of {$this->status} cannot be changed to {$newStatus}");
+        }
+
+        if ( ! is_null($this->status)) {
+            $this->runAfterCallback($this->status);
+        }
+
+        $this->runBeforeCallback($newStatus);
+
+        $this->attributes['status'] = $newStatus;
     }
 
     /**
@@ -63,63 +66,47 @@ trait EloquentStatusManagerTrait
         return false;
     }
 
-//    /**
-//     * @param $status
-//     * @return bool
-//     */
-//    public function is($status): bool
-//    {
-//        $this->throwExceptionIfStatusInvalid($status);
-//
-//        return $this->status === $status;
-//    }
-//
-//
-//    /**
-//     * @param $status
-//     */
-//    public function setAs($status)
-//    {
-//        $this->throwExceptionIfStatusInvalid($status);
-//
-//        if ( ! $this->canBe($status)) {
-//            $this->throwError("Status of {$this->status} cannot be changed to {$status}");
-//        }
-//
-//        $onStatusChangedMethod = $this->getOnStatusChangedMethod($this->status);
-//        if (method_exists($this, $onStatusChangedMethod)) {
-//            $this->$onStatusChangedMethod();
-//        }
-//
-//        $onStatusIsChangingMethod = $this->getOnStatusIsChangingMethod($status);
-//        if (method_exists($this, $onStatusIsChangingMethod)) {
-//            $this->$onStatusIsChangingMethod();
-//        }
-//
-//        $this->status = $status;
-//        $this->save();
-//    }
-//
-//
-//    /**
-//     * @param $status
-//     * @return string
-//     */
-//    public function getOnStatusChangedMethod($status): string
-//    {
-//        $capitalizedStatus = ucfirst(camel_case($status));
-//
-//        return "after{$capitalizedStatus}";
-//    }
-//
-//    /**
-//     * @param $status
-//     * @return string
-//     */
-//    public function getOnStatusIsChangingMethod($status): string
-//    {
-//        $capitalizedStatus = ucfirst(camel_case($status));
-//
-//        return "before{$capitalizedStatus}";
-//    }
+    /**
+     * @param $status
+     */
+    private function throwExceptionIfStatusInvalid(string $status)
+    {
+        if ( ! array_key_exists($status, $this->statuses)) {
+            throw new RuntimeException("{$status} is not a valid status");
+        }
+    }
+
+    /**
+     * @param string $status
+     */
+    private function runAfterCallback(string $status)
+    {
+        $method = "after{$this->slug_status($status)}";
+
+        if (method_exists($this, $method)) {
+            $this->$method();
+        }
+    }
+
+    /**
+     * @param string $status
+     */
+    private function runBeforeCallback(string $status)
+    {
+        $method = "before{$this->slug_status($status)}";
+
+        if (method_exists($this, $method)) {
+            $this->$method();
+        }
+    }
+
+    /**
+     * @param $status
+     * @return string
+     */
+    public function slug_status($status): string
+    {
+        $capitalizedStatus = ucfirst(camel_case($status));
+        return $capitalizedStatus;
+    }
 }
