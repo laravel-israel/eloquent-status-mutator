@@ -39,7 +39,7 @@ trait EloquentStatusManagerTrait
 
     /**
      * @param $status
-     * 
+     *
      * @return bool
      */
     public function canBe($status): bool
