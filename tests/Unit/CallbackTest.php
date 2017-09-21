@@ -6,7 +6,7 @@ use LaravelIsrael\EloquentStatusMutator\Tests\Mocks\SampleModel;
 use LaravelIsrael\EloquentStatusMutator\Tests\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 
-class CallbacksTest extends TestCase
+class CallbackTest extends TestCase
 {
     /**
      * @var SampleModel|PHPUnit_Framework_MockObject_MockObject
@@ -22,37 +22,24 @@ class CallbacksTest extends TestCase
 
         $this->model = $this->getMockBuilder(SampleModel::class)
             ->setConstructorArgs([$statuses])
-            ->setMethods(['afterAaa', 'beforeBbb'])
+            ->setMethods(['onBbb'])
             ->getMock();
     }
 
-    public function test_before_callback()
+    public function test_callback()
     {
         $this->model
             ->expects($this->once())
-            ->method('beforeBbb');
+            ->method('onBbb');
 
         $this->model->status = 'bbb';
     }
 
-    public function test_after_callback()
+    public function test_callback_is_not_executed_when_the_same_status_is_set()
     {
         $this->model
             ->expects($this->once())
-            ->method('afterAaa');
-
-        $this->model->status = 'bbb';
-    }
-
-    public function test_callbacks_are_not_executed_when_the_same_status_is_set()
-    {
-        $this->model
-            ->expects($this->once())
-            ->method('afterAaa');
-
-        $this->model
-            ->expects($this->once())
-            ->method('beforeBbb');
+            ->method('onBbb');
 
         $this->model->status = 'bbb';
         $this->model->status = 'bbb';

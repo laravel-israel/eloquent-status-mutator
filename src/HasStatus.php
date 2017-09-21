@@ -28,11 +28,7 @@ trait HasStatus
             throw new RuntimeException("Status of {$this->status} cannot be changed to {$newStatus}");
         }
 
-        if (!is_null($this->status)) {
-            $this->runAfterCallback($this->status);
-        }
-
-        $this->runBeforeCallback($newStatus);
+        $this->runOnChangeCallback($newStatus);
 
         $this->attributes['status'] = $newStatus;
     }
@@ -79,21 +75,9 @@ trait HasStatus
     /**
      * @param string $status
      */
-    private function runAfterCallback(string $status)
+    private function runOnChangeCallback(string $status)
     {
-        $method = "after{$this->slug_status($status)}";
-
-        if (method_exists($this, $method)) {
-            $this->$method();
-        }
-    }
-
-    /**
-     * @param string $status
-     */
-    private function runBeforeCallback(string $status)
-    {
-        $method = "before{$this->slug_status($status)}";
+        $method = "on{$this->slug_status($status)}";
 
         if (method_exists($this, $method)) {
             $this->$method();
