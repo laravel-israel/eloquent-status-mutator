@@ -77,20 +77,11 @@ trait HasStatus
      */
     private function runOnChangeCallback(string $status)
     {
-        $method = "on{$this->slug_status($status)}";
+        $formattedStatus = studly_case($status);
+        $method = "on{$formattedStatus}";
 
         if (method_exists($this, $method)) {
             $this->$method();
         }
-    }
-
-    /**
-     * @param $status
-     *
-     * @return string
-     */
-    private function slug_status($status): string
-    {
-        return ucfirst(camel_case($status));
     }
 }
