@@ -14,10 +14,10 @@ class Order extends Model
     
     protected $statuses = [
         'opened'    => [],
-        'payed'     => ['from' => 'opened'],
-        'shipped'   => ['from' => 'payed'],
+        'paid'      => ['from' => 'opened'],
+        'shipped'   => ['from' => 'paid'],
         'arrived'   => ['from' => 'shipped'],
-        'cancelled' => ['from' => ['opened', 'payed', 'shipped']],
+        'cancelled' => ['from' => ['opened', 'paid', 'shipped']],
     ];
 }
 ```
@@ -37,7 +37,7 @@ The package enforces that status can be set only after defined statuses in its `
 ```php
 $order->status = 'opened';
 
-$order->status = 'payed'; // OK
+$order->status = 'paid'; // OK
 
 $order->status = 'arrived'; // Throws Exception
 ```
@@ -45,9 +45,9 @@ $order->status = 'arrived'; // Throws Exception
 ### Helpers
 
 ```php
-$order->status = 'payed';
+$order->status = 'paid';
 
-if ($order->is('payed')) {
+if ($order->is('paid')) {
     echo 'The order is shipped';
 }
 
@@ -67,10 +67,10 @@ class Order extends Model
     
     protected $statuses = [
         'opened'    => [],
-        'payed'     => ['from' => 'opened'],
-        'shipped'   => ['from' => 'payed'],
+        'paid'      => ['from' => 'opened'],
+        'shipped'   => ['from' => 'paid'],
         'arrived'   => ['from' => 'shipped'],
-        'cancelled' => ['from' => ['opened', 'payed', 'shipped']],
+        'cancelled' => ['from' => ['opened', 'paid', 'shipped']],
     ];
     
     public function onCancelled()
@@ -101,8 +101,8 @@ class Order extends Model
 ```php
 protected $statuses = [
     'opened'  => [],
-    'payed'   => ['from' => 'opened'],
-    'shipped' => ['from' => 'payed'],
+    'paid'    => ['from' => 'opened'],
+    'shipped' => ['from' => 'paid'],
     'arrived' => ['from' => 'shipped'],
 ];
 ```
