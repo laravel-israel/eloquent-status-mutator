@@ -81,7 +81,7 @@ trait HasStatus
         $method = "on{$formattedStatus}";
 
         if (method_exists($this, $method)) {
-            $this->$method();
+            $this->$method($this->status, $status);
         }
     }
 }
