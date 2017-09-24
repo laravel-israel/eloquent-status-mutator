@@ -1,4 +1,6 @@
 # Eloquent Status Mutator
+[![Build Status](https://travis-ci.org/laravel-israel/eloquent-status-mutator.svg?branch=master)](https://travis-ci.org/laravel-israel/eloquent-status-mutator)
+
 Handling status changes of a model is always a pain.
 
 Eloquent Status Mutator provides is a simple trait which enforces correct status changes & some more cool features. 
