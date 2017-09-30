@@ -1,5 +1,8 @@
 # Eloquent Status Mutator
 [![Build Status](https://travis-ci.org/laravel-israel/eloquent-status-mutator.svg?branch=master)](https://travis-ci.org/laravel-israel/eloquent-status-mutator)
+[![Latest Stable Version](https://poser.pugx.org/laravel-israel/eloquent-status-mutator/v/stable)](https://packagist.org/packages/laravel-israel/eloquent-status-mutator)
+[![Total Downloads](https://poser.pugx.org/laravel-israel/eloquent-status-mutator/downloads)](https://packagist.org/packages/laravel-israel/eloquent-status-mutator)
+[![License](https://poser.pugx.org/laravel-israel/eloquent-status-mutator/license)](https://packagist.org/packages/laravel-israel/eloquent-status-mutator)
 
 Handling status changes of a model is always a pain.
 
