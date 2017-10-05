@@ -2,15 +2,15 @@
 
 namespace LaravelIsrael\EloquentStatusMutator\Exception;
 
-use RuntimeException;
 use Illuminate\Database\Eloquent\Model;
+use RuntimeException;
 
 class UndefinedStatusWasSet extends RuntimeException
 {
     /**
      * UndefinedStatusWasSet constructor.
      *
-     * @param Model $model
+     * @param Model  $model
      * @param string $newStatus
      */
     public function __construct(Model $model, string $newStatus)

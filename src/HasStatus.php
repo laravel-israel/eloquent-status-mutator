@@ -27,7 +27,7 @@ trait HasStatus
         }
 
         if (!$this->canBe($newStatus)) {
-            /** @var Model $this */
+            /* @var Model $this */
             throw new InvalidStatusChange($this, $this->status, $newStatus);
         }
 
@@ -71,7 +71,7 @@ trait HasStatus
     private function throwExceptionIfStatusInvalid(string $status)
     {
         if (!array_key_exists($status, $this->statuses)) {
-            /** @var Model $this */
+            /* @var Model $this */
             throw new UndefinedStatusWasSet($this, $status);
         }
     }

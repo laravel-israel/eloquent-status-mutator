@@ -2,15 +2,15 @@
 
 namespace LaravelIsrael\EloquentStatusMutator\Exception;
 
-use RuntimeException;
 use Illuminate\Database\Eloquent\Model;
+use RuntimeException;
 
 class InvalidStatusChange extends RuntimeException
 {
     /**
      * UndefinedStatusWasSet constructor.
      *
-     * @param Model $model
+     * @param Model  $model
      * @param string $oldStatus
      * @param string $newStatus
      */
@@ -18,7 +18,7 @@ class InvalidStatusChange extends RuntimeException
     {
         $modelName = class_basename($model);
 
-        /** @var string $model->status */
+        /* @var string $model->status */
         parent::__construct("Status of {$oldStatus} cannot be changed to {$newStatus} in {$modelName}");
     }
 }

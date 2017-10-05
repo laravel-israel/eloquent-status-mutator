@@ -3,9 +3,9 @@
 namespace LaravelIsrael\EloquentStatusMutator\Tests\Unit;
 
 use LaravelIsrael\EloquentStatusMutator\Exception\InvalidStatusChange;
+use LaravelIsrael\EloquentStatusMutator\Exception\UndefinedStatusWasSet;
 use LaravelIsrael\EloquentStatusMutator\Tests\Mocks\SampleModel;
 use LaravelIsrael\EloquentStatusMutator\Tests\TestCase;
-use LaravelIsrael\EloquentStatusMutator\Exception\UndefinedStatusWasSet;
 
 class TransitionTest extends TestCase
 {
