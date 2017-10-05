@@ -2,7 +2,9 @@
 
 namespace LaravelIsrael\EloquentStatusMutator;
 
-use RuntimeException;
+use Illuminate\Database\Eloquent\Model;
+use LaravelIsrael\EloquentStatusMutator\Exception\InvalidStatusChange;
+use LaravelIsrael\EloquentStatusMutator\Exception\UndefinedStatusWasSet;
 
 /**
  * Trait HasStatus.
@@ -25,7 +27,8 @@ trait HasStatus
         }
 
         if (!$this->canBe($newStatus)) {
-            throw new RuntimeException("Status of {$this->status} cannot be changed to {$newStatus}");
+            /* @var Model $this */
+            throw new InvalidStatusChange($this, $this->status, $newStatus);
         }
 
         $this->runOnChangeCallback($newStatus);
@@ -68,7 +71,8 @@ trait HasStatus
     private function throwExceptionIfStatusInvalid(string $status)
     {
         if (!array_key_exists($status, $this->statuses)) {
-            throw new RuntimeException("{$status} is not a valid status");
+            /* @var Model $this */
+            throw new UndefinedStatusWasSet($this, $status);
         }
     }
 

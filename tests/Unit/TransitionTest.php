@@ -2,9 +2,10 @@
 
 namespace LaravelIsrael\EloquentStatusMutator\Tests\Unit;
 
+use LaravelIsrael\EloquentStatusMutator\Exception\InvalidStatusChange;
+use LaravelIsrael\EloquentStatusMutator\Exception\UndefinedStatusWasSet;
 use LaravelIsrael\EloquentStatusMutator\Tests\Mocks\SampleModel;
 use LaravelIsrael\EloquentStatusMutator\Tests\TestCase;
-use RuntimeException;
 
 class TransitionTest extends TestCase
 {
@@ -26,8 +27,10 @@ class TransitionTest extends TestCase
             'aaa'  => [],
         ]);
 
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('bbb is not a valid status');
+        $modelName = class_basename($model);
+
+        $this->expectException(UndefinedStatusWasSet::class);
+        $this->expectExceptionMessage("Undefined status bbb was set for {$modelName}");
 
         $model->status = 'bbb';
     }
@@ -51,8 +54,10 @@ class TransitionTest extends TestCase
             'bbb'  => ['from' => 'ccc'],
         ]);
 
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Status of aaa cannot be changed to bbb');
+        $modelName = class_basename($model);
+
+        $this->expectException(InvalidStatusChange::class);
+        $this->expectExceptionMessage("Status of aaa cannot be changed to bbb in {$modelName}");
 
         $model->status = 'bbb';
     }
@@ -76,8 +81,10 @@ class TransitionTest extends TestCase
             'bbb'  => ['from' => ['ccc']],
         ]);
 
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Status of aaa cannot be changed to bbb');
+        $modelName = class_basename($model);
+
+        $this->expectException(InvalidStatusChange::class);
+        $this->expectExceptionMessage("Status of aaa cannot be changed to bbb in {$modelName}");
 
         $model->status = 'bbb';
     }
