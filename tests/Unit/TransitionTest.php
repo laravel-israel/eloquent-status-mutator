@@ -28,7 +28,7 @@ class TransitionTest extends TestCase
         ]);
 
         $this->expectException(UndefinedStatusWasSet::class);
-        $this->expectExceptionMessage("Undefined status bbb was set for SampleModel");
+        $this->expectExceptionMessage('Undefined status bbb was set for SampleModel');
 
         $model->status = 'bbb';
     }
@@ -53,7 +53,7 @@ class TransitionTest extends TestCase
         ]);
 
         $this->expectException(InvalidStatusChange::class);
-        $this->expectExceptionMessage("Status of aaa cannot be changed to bbb in SampleModel");
+        $this->expectExceptionMessage('Status of aaa cannot be changed to bbb in SampleModel');
 
         $model->status = 'bbb';
     }
@@ -78,7 +78,7 @@ class TransitionTest extends TestCase
         ]);
 
         $this->expectException(InvalidStatusChange::class);
-        $this->expectExceptionMessage("Status of aaa cannot be changed to bbb in SampleModel");
+        $this->expectExceptionMessage('Status of aaa cannot be changed to bbb in SampleModel');
 
         $model->status = 'bbb';
     }
@@ -103,7 +103,7 @@ class TransitionTest extends TestCase
         ]);
 
         $this->expectException(InvalidStatusChange::class);
-        $this->expectExceptionMessage("Status of aaa cannot be changed to bbb in SampleModel");
+        $this->expectExceptionMessage('Status of aaa cannot be changed to bbb in SampleModel');
 
         $model->status = 'bbb';
     }
@@ -128,7 +128,7 @@ class TransitionTest extends TestCase
         ]);
 
         $this->expectException(InvalidStatusChange::class);
-        $this->expectExceptionMessage("Status of aaa cannot be changed to bbb in SampleModel");
+        $this->expectExceptionMessage('Status of aaa cannot be changed to bbb in SampleModel');
 
         $model->status = 'bbb';
     }

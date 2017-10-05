@@ -74,11 +74,12 @@ trait HasStatus
 
     /**
      * @param $status
+     *
      * @return bool
      */
     private function checkFrom($status): bool
     {
-        if ( ! array_key_exists('from', $this->statuses[$status])) {
+        if (!array_key_exists('from', $this->statuses[$status])) {
             return true;
         }
 
@@ -99,11 +100,12 @@ trait HasStatus
 
     /**
      * @param $status
+     *
      * @return bool
      */
     private function checkNotFrom($status): bool
     {
-        if ( ! array_key_exists('not-from', $this->statuses[$status])) {
+        if (!array_key_exists('not-from', $this->statuses[$status])) {
             return true;
         }
 
