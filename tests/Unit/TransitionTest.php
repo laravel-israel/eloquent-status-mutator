@@ -27,15 +27,13 @@ class TransitionTest extends TestCase
             'aaa'  => [],
         ]);
 
-        $modelName = class_basename($model);
-
         $this->expectException(UndefinedStatusWasSet::class);
-        $this->expectExceptionMessage("Undefined status bbb was set for {$modelName}");
+        $this->expectExceptionMessage("Undefined status bbb was set for SampleModel");
 
         $model->status = 'bbb';
     }
 
-    public function test_correct_transition_with_single_from()
+    public function test_valid_single_from()
     {
         $model = new SampleModel([
             'aaa'  => [],
@@ -47,22 +45,20 @@ class TransitionTest extends TestCase
         $this->addToAssertionCount(1);
     }
 
-    public function test_incorrect_transition_with_single_from()
+    public function test_invalid_single_from()
     {
         $model = new SampleModel([
             'aaa'  => [],
             'bbb'  => ['from' => 'ccc'],
         ]);
 
-        $modelName = class_basename($model);
-
         $this->expectException(InvalidStatusChange::class);
-        $this->expectExceptionMessage("Status of aaa cannot be changed to bbb in {$modelName}");
+        $this->expectExceptionMessage("Status of aaa cannot be changed to bbb in SampleModel");
 
         $model->status = 'bbb';
     }
 
-    public function test_correct_transition_with_multiple_from()
+    public function test_valid_multiple_from()
     {
         $model = new SampleModel([
             'aaa'  => [],
@@ -74,17 +70,65 @@ class TransitionTest extends TestCase
         $this->addToAssertionCount(1);
     }
 
-    public function test_incorrect_transition_with_multiple_from()
+    public function test_invalid_multiple_from()
     {
         $model = new SampleModel([
             'aaa'  => [],
             'bbb'  => ['from' => ['ccc']],
         ]);
 
-        $modelName = class_basename($model);
+        $this->expectException(InvalidStatusChange::class);
+        $this->expectExceptionMessage("Status of aaa cannot be changed to bbb in SampleModel");
+
+        $model->status = 'bbb';
+    }
+
+    public function test_valid_single_not_from()
+    {
+        $model = new SampleModel([
+            'aaa'  => [],
+            'bbb'  => ['not-from' => 'ccc'],
+        ]);
+
+        $model->status = 'bbb';
+
+        $this->addToAssertionCount(1);
+    }
+
+    public function test_invalid_single_not_from()
+    {
+        $model = new SampleModel([
+            'aaa'  => [],
+            'bbb'  => ['not-from' => 'aaa'],
+        ]);
 
         $this->expectException(InvalidStatusChange::class);
-        $this->expectExceptionMessage("Status of aaa cannot be changed to bbb in {$modelName}");
+        $this->expectExceptionMessage("Status of aaa cannot be changed to bbb in SampleModel");
+
+        $model->status = 'bbb';
+    }
+
+    public function test_valid_multiple_not_from()
+    {
+        $model = new SampleModel([
+            'aaa'  => [],
+            'bbb'  => ['not-from' => ['ccc']],
+        ]);
+
+        $model->status = 'bbb';
+
+        $this->addToAssertionCount(1);
+    }
+
+    public function test_invalid_multiple_not_from()
+    {
+        $model = new SampleModel([
+            'aaa'  => [],
+            'bbb'  => ['not-from' => ['aaa']],
+        ]);
+
+        $this->expectException(InvalidStatusChange::class);
+        $this->expectExceptionMessage("Status of aaa cannot be changed to bbb in SampleModel");
 
         $model->status = 'bbb';
     }

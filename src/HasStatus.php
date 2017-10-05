@@ -45,24 +45,7 @@ trait HasStatus
     {
         $this->throwExceptionIfStatusInvalid($status);
 
-        // Return true if the from key was not defined
-        if (!array_key_exists('from', $this->statuses[$status])) {
-            return true;
-        }
-
-        $from = $this->statuses[$status]['from'];
-
-        if (is_string($from)) {
-            return $this->status === $from;
-        }
-
-        foreach ($from as $toOption) {
-            if ($this->status === $toOption) {
-                return true;
-            }
-        }
-
-        return false;
+        return $this->checkFrom($status) && $this->checkNotFrom($status);
     }
 
     /**
@@ -87,5 +70,55 @@ trait HasStatus
         if (method_exists($this, $method)) {
             $this->$method();
         }
+    }
+
+    /**
+     * @param $status
+     * @return bool
+     */
+    private function checkFrom($status): bool
+    {
+        if ( ! array_key_exists('from', $this->statuses[$status])) {
+            return true;
+        }
+
+        $from = $this->statuses[$status]['from'];
+
+        if (is_string($from)) {
+            return $this->status === $from;
+        }
+
+        foreach ($from as $toOption) {
+            if ($this->status === $toOption) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $status
+     * @return bool
+     */
+    private function checkNotFrom($status): bool
+    {
+        if ( ! array_key_exists('not-from', $this->statuses[$status])) {
+            return true;
+        }
+
+        $from = $this->statuses[$status]['not-from'];
+
+        if (is_string($from)) {
+            return $this->status !== $from;
+        }
+
+        foreach ($from as $toOption) {
+            if ($this->status === $toOption) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
