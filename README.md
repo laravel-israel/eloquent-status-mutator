@@ -19,10 +19,11 @@ class Order extends Model
     
     protected $statuses = [
         'opened'    => [],
-        'paid'      => ['from' => 'opened'],
-        'shipped'   => ['from' => 'paid'],
-        'arrived'   => ['from' => 'shipped'],
-        'cancelled' => ['from' => ['opened', 'paid', 'shipped']],
+        'paid'      => ['from'     => 'opened'],
+        'approved'  => ['from'     => 'paid'],
+        'shipped'   => ['from'     => ['paid', 'approved']],
+        'arrived'   => ['from'     => 'shipped'],
+        'cancelled' => ['not-from' => ['arrived']],
     ];
 }
 ```
@@ -33,7 +34,7 @@ The package makes sure that only listed statuses can be set:
 ```php
 $order->status = 'opened'; // OK
 
-$order->status = 'invalid status'; // Throws Exception
+$order->status = 'some other status'; // Throws Exception
 ```
 
 ### Status Flow Validation
@@ -45,6 +46,15 @@ $order->status = 'opened';
 $order->status = 'paid'; // OK
 
 $order->status = 'arrived'; // Throws Exception
+```
+
+
+The package also enforces the `'not-from'` status
+
+```php
+$order->status = 'arrived';
+
+$order->status = 'cancelled'; // Throws Exception
 ```
 
 ### Helpers
@@ -72,10 +82,11 @@ class Order extends Model
     
     protected $statuses = [
         'opened'    => [],
-        'paid'      => ['from' => 'opened'],
-        'shipped'   => ['from' => 'paid'],
-        'arrived'   => ['from' => 'shipped'],
-        'cancelled' => ['from' => ['opened', 'paid', 'shipped']],
+        'paid'      => ['from'     => 'opened'],
+        'approved'  => ['from'     => 'paid'],
+        'shipped'   => ['from'     => ['paid', 'approved']],
+        'arrived'   => ['from'     => 'shipped'],
+        'cancelled' => ['not-from' => ['arrived']],
     ];
     
     public function onCancelled()
@@ -105,9 +116,11 @@ class Order extends Model
 
 ```php
 protected $statuses = [
-    'opened'  => [],
-    'paid'    => ['from' => 'opened'],
-    'shipped' => ['from' => 'paid'],
-    'arrived' => ['from' => 'shipped'],
+    'opened'    => [],
+    'paid'      => ['from'     => 'opened'],
+    'approved'  => ['from'     => 'paid'],
+    'shipped'   => ['from'     => ['paid', 'approved']],
+    'arrived'   => ['from'     => 'shipped'],
+    'cancelled' => ['not-from' => ['arrived']],
 ];
 ```
