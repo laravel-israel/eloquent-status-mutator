@@ -2,7 +2,6 @@
     "name": "laravel-israel/eloquent-status-mutator",
     "description": "A status manager trait for Eloquent models",
     "type": "library",
-    "version": "1.0.0-dev",
     "require": {
         "laravel/framework": "^5.4.29"
     },
