@@ -27,7 +27,7 @@ class TransitionTest extends TestCase
             'aaa'  => [],
         ]);
 
-        $modelName = get_class($model);
+        $modelName = class_basename($model);
 
         $this->expectException(UndefinedStatusWasSet::class);
         $this->expectExceptionMessage("Undefined status bbb was set for {$modelName}");
@@ -54,7 +54,7 @@ class TransitionTest extends TestCase
             'bbb'  => ['from' => 'ccc'],
         ]);
 
-        $modelName = get_class($model);
+        $modelName = class_basename($model);
 
         $this->expectException(InvalidStatusChange::class);
         $this->expectExceptionMessage("Status of aaa cannot be changed to bbb in {$modelName}");
@@ -81,7 +81,7 @@ class TransitionTest extends TestCase
             'bbb'  => ['from' => ['ccc']],
         ]);
 
-        $modelName = get_class($model);
+        $modelName = class_basename($model);
 
         $this->expectException(InvalidStatusChange::class);
         $this->expectExceptionMessage("Status of aaa cannot be changed to bbb in {$modelName}");

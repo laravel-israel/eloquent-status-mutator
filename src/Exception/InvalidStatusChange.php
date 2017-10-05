@@ -16,7 +16,7 @@ class InvalidStatusChange extends RuntimeException
      */
     public function __construct(Model $model, string $oldStatus, string $newStatus)
     {
-        $modelName = get_class($model);
+        $modelName = class_basename($model);
 
         /** @var string $model->status */
         parent::__construct("Status of {$oldStatus} cannot be changed to {$newStatus} in {$modelName}");

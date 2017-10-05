@@ -15,7 +15,7 @@ class UndefinedStatusWasSet extends RuntimeException
      */
     public function __construct(Model $model, string $newStatus)
     {
-        $modelName = get_class($model);
+        $modelName = class_basename($model);
 
         parent::__construct("Undefined status {$newStatus} was set for {$modelName}");
     }
